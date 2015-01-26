@@ -129,7 +129,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="FluentValidation\FluentValidationOptions.cs" />
+    <Compile Include="FluentValidation\MyFluentValidationOptions.cs" />
     <Compile Include="FluentValidation\MyFluentValidationResources.cs" />
     <Compile Include="FluentValidation\MyRangeFluentValidatorPropertyValidator.cs" />
     <Compile Include="FluentValidation\MyStringLengthFluentValidationPropertyValidator.cs" />

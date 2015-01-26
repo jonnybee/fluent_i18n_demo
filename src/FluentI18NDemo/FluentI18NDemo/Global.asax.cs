@@ -32,15 +32,15 @@ namespace FluentI18NDemo
             // custom formatter for DisplayName 
             MyFluentValidationOptions.Settings =
                 new i18nSettings(new WebConfigSettingService(HttpRuntime.AppDomainAppVirtualPath, true));
-            ValidatorOptions.DisplayNameResolver = MyFluentValidationOptions.WeDisplayNameResolver;
-            FluentValidationModelValidatorProvider.Configure(p =>
-            {
-                p.Add(typeof (InclusiveBetweenValidator),
-                    (metadata, context, rule, validator) =>
-                        new MyRangeFluentValidationPropertyValidator(metadata, context, rule, validator));
-                p.Add(typeof(ILengthValidator), (metadata, context, rule, validator) => 
-                        new MyStringLengthFluentValidationPropertyValidator(metadata, context, rule, validator));
-            });
+            ValidatorOptions.DisplayNameResolver = MyFluentValidationOptions.DisplayNameResolver;
+    FluentValidationModelValidatorProvider.Configure(p =>
+    {
+        p.Add(typeof (InclusiveBetweenValidator),
+            (metadata, context, rule, validator) =>
+                new MyRangeFluentValidationPropertyValidator(metadata, context, rule, validator));
+        p.Add(typeof(ILengthValidator), (metadata, context, rule, validator) => 
+                new MyStringLengthFluentValidationPropertyValidator(metadata, context, rule, validator));
+    });
 
           
 
