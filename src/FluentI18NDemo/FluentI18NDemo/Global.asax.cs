@@ -30,9 +30,9 @@ namespace FluentI18NDemo
             // set custom resources for ProviderType
             ValidatorOptions.ResourceProviderType = typeof(MyFluentValidationResources);
             // custom formatter for DisplayName 
-            FluentValidationOptions.Settings =
+            MyFluentValidationOptions.Settings =
                 new i18nSettings(new WebConfigSettingService(HttpRuntime.AppDomainAppVirtualPath, true));
-            ValidatorOptions.DisplayNameResolver = FluentValidationOptions.WeDisplayNameResolver;
+            ValidatorOptions.DisplayNameResolver = MyFluentValidationOptions.WeDisplayNameResolver;
             FluentValidationModelValidatorProvider.Configure(p =>
             {
                 p.Add(typeof (InclusiveBetweenValidator),

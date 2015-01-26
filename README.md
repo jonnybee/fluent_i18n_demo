@@ -45,9 +45,10 @@ We also want FluentValidation to return a format string where the message is use
     }
 ```
 So when the rule for CountryName - NotEmpty is broken, FluentValidation should return this message to ASP.NET MVC: 
-**[[[%0 should not be empty.|||((CountryName))]]]** 
-and then i18n will lookup reource for key **"%0 should not be empty."** and **"CountryName"** for the proper language and format the string to be returned to the client! 
 
+**[[[%0 should not be empty.|||((CountryName))]]]**
+
+and then i18n will lookup reource for key **"%0 should not be empty."** and **"CountryName"** for the proper language and format the string to be returned to the client! 
 
 ### Defining you own i18n resource 
 Create a class that holds the resources for FluentValidation that i18n can translate 
@@ -82,14 +83,138 @@ And register this class in Application_Start
 ```
 
 ### parameter formatting
-We would also like to support tranlation of parameter name
+We would also like to support tranlation of parameter name and so we want to first look for DisplayName attribute on the filed and next for a specified name (WithName()) or the name of the property: 
 ```csharp
-   // set custom resources for ProviderType
-   ValidatorOptions.ResourceProviderType = typeof(MyFluentValidationResources);
-```
+    public static class MyFluentValidationOptions
+    {
+        public static i18nSettings Settings { get; set; }
+
+        public static string DisplayNameResolver(Type type, MemberInfo member, LambdaExpression expression)
+        {
+            var displayName = GetDisplayName(type, member, expression);
+            if (displayName == null) return null;
+
+            return string.Format("{0}{1}{2}",
+                Settings.NuggetParameterBeginToken,
+                displayName.Replace(Settings.NuggetBeginToken, string.Empty)
+                           .Replace(Settings.NuggetEndToken, string.Empty)
+                           .Replace(Settings.NuggetParameterBeginToken, string.Empty)
+                           .Replace(Settings.NuggetParameterEndToken, string.Empty),
+                           Settings.NuggetParameterEndToken);
+        }
+
+        private static string GetDisplayName(Type type, MemberInfo member, LambdaExpression expression)
+        {
+            if (member != null)
+            {
+                // check for DisplayName attribute 
+                var dnAttr = member.GetCustomAttributes<DisplayNameAttribute>().FirstOrDefault();
+                if (dnAttr != null)
+                    return (dnAttr).DisplayName;
+            }
+
+            // get the name from expression 
+            if (expression != null)
+            {
+                var chain = PropertyChain.FromExpression(expression);
+                if (chain.Count > 0)
+                    return chain.ToString();
+            }
+
+            //return propertyname 
+            if (member != null)
+                return member.Name;
+
+            return null;
+        }
+    }```
      
+So the purpose is to get the FieldName and retuned it with the corrent NuggetParameterBeginToken and NuggetParameterEndToken for i18n. 
+
+### Plugin your ValidationOptions for parameter name
+So to register our FluentValidationOptions we need to add this in Application:Start()
+```csharp
+
+    FluentValidationOptions.Settings =
+        new i18nSettings(new WebConfigSettingService(HttpRuntime.AppDomainAppVirtualPath, true));
+    ValidatorOptions.DisplayNameResolver = MyFluentValidationOptions.DisplayNameResolver;```
 
 
 ### FluentValidation.Mvc5 pitfalls and workaround 
+Unfortunately - the creators of FluentValidation.Mvc determined that truncation the error message at the first "." is a good idea for RangeFluentValidator and StringLengthFluentValidation. So we must workaround these formatters to return the entire actual message. 
 
+```csharp
 
+    internal class MyRangeFluentValidationPropertyValidator : FluentValidationPropertyValidator
+    {
+        InclusiveBetweenValidator RangeValidator
+        {
+            get { return (InclusiveBetweenValidator)Validator; }
+        }
+
+        public MyRangeFluentValidationPropertyValidator(ModelMetadata metadata, ControllerContext controllerContext, PropertyRule propertyDescription, IPropertyValidator validator)
+            : base(metadata, controllerContext, propertyDescription, validator)
+        {
+            ShouldValidate = false;
+        }
+
+        public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
+        {
+            if (!ShouldGenerateClientSideRules()) yield break;
+
+            var formatter = new MessageFormatter()
+                .AppendPropertyName(Rule.GetDisplayName())
+                .AppendArgument("From", RangeValidator.From)
+                .AppendArgument("To", RangeValidator.To);
+
+            var message = RangeValidator.ErrorMessageSource.GetString();
+            message = formatter.BuildMessage(message);
+
+            yield return new ModelClientValidationRangeRule(message, RangeValidator.From, RangeValidator.To);
+        }
+    }
+
+    public class MyStringLengthFluentValidationPropertyValidator : FluentValidationPropertyValidator {
+		private ILengthValidator LengthValidator {
+			get { return (ILengthValidator)Validator; }
+		}
+
+        public MyStringLengthFluentValidationPropertyValidator(ModelMetadata metadata, ControllerContext controllerContext, PropertyRule rule, IPropertyValidator validator)
+			: base(metadata, controllerContext, rule, validator) {
+			ShouldValidate = false;
+		}
+
+		public override IEnumerable<ModelClientValidationRule> GetClientValidationRules() {
+			if(!ShouldGenerateClientSideRules()) yield break;
+
+			var formatter = new MessageFormatter()
+				.AppendPropertyName(Rule.GetDisplayName())
+				.AppendArgument("MinLength", LengthValidator.Min)
+				.AppendArgument("MaxLength", LengthValidator.Max);
+
+			var message = LengthValidator.ErrorMessageSource.GetString();
+			message = formatter.BuildMessage(message);
+
+			yield return new ModelClientValidationStringLengthRule(message, LengthValidator.Min, LengthValidator.Max) ;
+		}
+	}
+}
+```
+### Plug custom validators into FluentValidation.Mvc5  
+Our custom validator must be registered with the FluentValidationModelProvider in Application_Start()
+
+```csharp
+
+    FluentValidationModelValidatorProvider.Configure(p =>
+    {
+        p.Add(typeof (InclusiveBetweenValidator),
+            (metadata, context, rule, validator) =>
+                new MyRangeFluentValidationPropertyValidator(metadata, context, rule, validator));
+        p.Add(typeof(ILengthValidator), (metadata, context, rule, validator) => 
+                new MyStringLengthFluentValidationPropertyValidator(metadata, context, rule, validator));
+    });
+
+```
+
+### Summary
+This repo contains a VS2013 solution with all the necessary code to make FluentValidation and i18n work together in validation and translation og resources. This is very handy when you application must support several languages and you use i18n to handle your translations. Using this code you will not rely on any og the resources in FluentValidation. 

@@ -10,11 +10,11 @@ using i18n.Domain.Concrete;
 
 namespace FluentI18NDemo.FluentValidation
 {
-    public static class FluentValidationOptions
+    public static class MyFluentValidationOptions
     {
         public static i18nSettings Settings { get; set; }
 
-        public static string WeDisplayNameResolver(Type type, MemberInfo member, LambdaExpression expression)
+        public static string DisplayNameResolver(Type type, MemberInfo member, LambdaExpression expression)
         {
             var displayName = GetDisplayName(type, member, expression);
             if (displayName == null) return null;
