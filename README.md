@@ -134,8 +134,8 @@ So to register our FluentValidationOptions we need to add this in Application:St
 
     FluentValidationOptions.Settings =
         new i18nSettings(new WebConfigSettingService(HttpRuntime.AppDomainAppVirtualPath, true));
-    ValidatorOptions.DisplayNameResolver = MyFluentValidationOptions.DisplayNameResolver;```
-
+    ValidatorOptions.DisplayNameResolver = MyFluentValidationOptions.DisplayNameResolver;
+```
 
 ### FluentValidation.Mvc5 pitfalls and workaround 
 Unfortunately - the creators of FluentValidation.Mvc determined that truncation the error message at the first "." is a good idea for RangeFluentValidation and StringLengthFluentValidation. So we must workaround these formatters to return the entire actual message. 
@@ -197,6 +197,7 @@ Unfortunately - the creators of FluentValidation.Mvc determined that truncation 
 	}
 }
 ```
+
 ### Plug custom validators into FluentValidation.Mvc5  
 Our custom validators must then be registered with the FluentValidationModelProvider in Application_Start()
 
