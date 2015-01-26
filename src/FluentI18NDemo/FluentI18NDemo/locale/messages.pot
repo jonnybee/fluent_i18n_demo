@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Project-Id-Version: 
+"
+"POT-Creation-Date: 2015-01-25 14:14+01:00
+"
+"MIME-Version: 1.0
+"
+"Content-Type: text/plain; charset=utf-8
+"
+"Content-Transfer-Encoding: 8bit
+"
+"X-Generator: i18n.POTGenerator
+"
+
+#: FluentValidation\MyFluentValidationResources.cs:12
+msgid "%0 is not a valid credit card number."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:13
+msgid "%0 is not a valid email address."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:27
+msgid "%0 is not in the correct format."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:28
+msgid "%0 may not be more than %1 digits in total, with allowance for %2 decimals."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:15
+msgid "%0 must be %1 characters in length."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:16
+msgid "%0 must be between %1 and %2 (exclusive)."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:20
+msgid "%0 must be between %1 and %2 characters."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:19
+msgid "%0 must be between %1 and %2."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:17
+msgid "%0 must be greater than '%1'."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:18
+msgid "%0 must be greater than or equal to '%1'."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:21
+msgid "%0 must be less than '%1'."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:22
+msgid "%0 must be less than or equal to '%1'."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:25
+msgid "%0 must not be empty."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:14
+msgid "%0 should be equal to '%1'."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:23
+msgid "%0 should not be empty."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:24
+msgid "%0 should not be equal to '%1'."
+msgstr ""
+
+#: Models\Country.cs:19
+msgid "CountryCode"
+msgstr ""
+
+#: Models\Country.cs:22
+msgid "CountryName"
+msgstr ""
+
+#: Models\Country.cs:25
+msgid "TwoLetterIsoCode"
+msgstr ""
+

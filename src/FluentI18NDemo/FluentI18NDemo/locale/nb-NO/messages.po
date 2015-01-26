@@ -1,0 +1,163 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Project-Id-Version: 
+"
+"POT-Creation-Date: 2015-01-25 14:14+01:00
+"
+"PO-Revision-Date: 2015-01-25 14:14+01:00
+"
+"MIME-Version: 1.0
+"
+"Content-Type: text/plain; charset=utf-8
+"
+"Content-Transfer-Encoding: 8bit
+"
+"X-Generator: i18n.POTGenerator
+"
+
+#: FluentValidation\MyFluentValidationResources.cs:12
+msgid "%0 is not a valid credit card number."
+msgstr "%0 er ikke et gyldig kredittkortnummer."
+
+#: FluentValidation\MyFluentValidationResources.cs:13
+msgid "%0 is not a valid email address."
+msgstr "%0 er ikke en gyldig e-postadresse."
+
+#: FluentValidation\MyFluentValidationResources.cs:27
+msgid "%0 is not in the correct format."
+msgstr "%0 er ikke i riktig format."
+
+#: FluentValidation\MyFluentValidationResources.cs:28
+msgid "%0 may not be more than %1 digits in total, with allowance for %2 decimals."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:15
+msgid "%0 must be %1 characters in length."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:16
+msgid "%0 must be between %1 and %2 (exclusive)."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:20
+msgid "%0 must be between %1 and %2 characters."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:19
+msgid "%0 must be between %1 and %2."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:17
+msgid "%0 must be greater than '%1'."
+msgstr "% 0 må være større enn '%1'."
+
+#: FluentValidation\MyFluentValidationResources.cs:18
+msgid "%0 must be greater than or equal to '%1'."
+msgstr "%0 må være større enn eller lik '%1'."
+
+#: FluentValidation\MyFluentValidationResources.cs:21
+msgid "%0 must be less than '%1'."
+msgstr "%0 må være mindre enn %1."
+
+#: FluentValidation\MyFluentValidationResources.cs:22
+msgid "%0 must be less than or equal to '%1'."
+msgstr "%0 må være mindre enn eller lik '%1'."
+
+#: FluentValidation\MyFluentValidationResources.cs:25
+msgid "%0 must not be empty."
+msgstr "%0 kan må ikke være tom."
+
+#: FluentValidation\MyFluentValidationResources.cs:14
+msgid "%0 should be equal to '%1'."
+msgstr ""
+
+#: FluentValidation\MyFluentValidationResources.cs:23
+msgid "%0 should not be empty."
+msgstr "%0 bør ikke være tom."
+
+#: FluentValidation\MyFluentValidationResources.cs:24
+msgid "%0 should not be equal to '%1'."
+msgstr "%0 bør ikke være lik %1."
+
+#: Models\Country.cs:19
+msgid "CountryCode"
+msgstr "Landkode"
+
+#: Models\Country.cs:22
+msgid "CountryName"
+msgstr "Landnavn"
+
+#: Models\Country.cs:25
+msgid "TwoLetterIsoCode"
+msgstr "ToBokstavKode"
+
+#~ msgid "%0 is not a valid credit card number"
+#~ msgstr ""
+
+#~ msgid "%0 is not a valid email address"
+#~ msgstr ""
+
+#~ msgid "%0 is not in the correct format"
+#~ msgstr ""
+
+#~ msgid "%0 may not be more than %1 digits in total, with allowance for %2 decimals"
+#~ msgstr ""
+
+#~ msgid "%0 may not be more than %1 digits in total, with allowance for %2 decimals. %3 digits and %4 decimals were found."
+#~ msgstr "%0 kan ikke være mer enn %1 sifre totalt, med kvote for %2 desimaler. %3 sifre og % 4 desimaler ble funnet."
+
+#~ msgid "%0 must be %1 characters in length"
+#~ msgstr ""
+
+#~ msgid "%0 must be %1 characters in length. You entered %2 characters."
+#~ msgstr "%0 må være lengre enn %1 tegn. Du tastet %2 tegn."
+
+#~ msgid "%0 must be between %1 and %2"
+#~ msgstr ""
+
+#~ msgid "%0 must be between %1 and %2 (exclusive)"
+#~ msgstr ""
+
+#~ msgid "%0 must be between %1 and %2 (exclusive). You entered %3."
+#~ msgstr "%0 må være mellom 1% og 2% (eksklusivt). Du tastet %3."
+
+#~ msgid "%0 must be between %1 and %2 characters"
+#~ msgstr ""
+
+#~ msgid "%0 must be between %1 and %2 characters. You entered  characters."
+#~ msgstr "% 0 må være mellom 1% og 2% tegn. Du har tastet inn %3 tegn."
+
+#~ msgid "%0 must be between %1 and %2 characters. You entered %3 characters."
+#~ msgstr "% 0 må være mellom %1 og %2 tegn. Du tastet %3 tegn."
+
+#~ msgid "%0 must be between %1 and %2. You entered %3."
+#~ msgstr "%0 må være mellom %1 og %2. Du tastet %3."
+
+#~ msgid "%0 must be greater than '%1'"
+#~ msgstr ""
+
+#~ msgid "%0 must be greater than or equal to '%1'"
+#~ msgstr ""
+
+#~ msgid "%0 must be less than '%1'"
+#~ msgstr ""
+
+#~ msgid "%0 must be less than or equal to '%1'"
+#~ msgstr ""
+
+#~ msgid "%0 must not be empty"
+#~ msgstr ""
+
+#~ msgid "%0 should be equal to '%1'"
+#~ msgstr ""
+
+#~ msgid "%0 should be equal to '{ComparisonValue}'."
+#~ msgstr "%0 bør være lik {ComparisonValue}."
+
+#~ msgid "%0 should not be empty"
+#~ msgstr ""
+
+#~ msgid "%0 should not be equal to '%1'"
+#~ msgstr ""
+
