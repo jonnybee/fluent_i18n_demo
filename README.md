@@ -44,11 +44,7 @@ We also want FluentValidation to return a format string where the message is use
         }
     }
 ```
-So when the rule for CountryName - NotEmpty is broken, FluentValidation should return this message to ASP.NET MVC: 
-
-**[[[%0 should not be empty.|||((CountryName))]]]**
-
-and then i18n will lookup reource for key **"%0 should not be empty."** and **"CountryName"** for the proper language and format the string to be returned to the client! 
+So when the rule for CountryName - NotEmpty is broken, FluentValidation should return this message to ASP.NET MVC: **[[[%0 should not be empty.|||((CountryName))]]]** and then i18n will lookup reource for key **"%0 should not be empty."** and **"CountryName"** for the proper language and format the string to be returned to the client! 
 
 ### Defining you own i18n resource 
 Create a class that holds the resources for FluentValidation that i18n can translate 
@@ -75,14 +71,14 @@ public class MyFluentValidationResources
     public static string scale_precision_error { get { return "[[[%0 may not be more than %1 digits in total, with allowance for %2 decimals.|||{PropertyName}|||{expectedPrecision}|||{expectedScale}]]]"; } }
 }
 ```
-### plugin your i18n resource
+### Plugin your i18n adapted resources
 And register this class in Application_Start
 ```csharp
    // set custom resources for ProviderType
    ValidatorOptions.ResourceProviderType = typeof(MyFluentValidationResources);
 ```
 
-### parameter formatting
+### Parameter formatting
 We would also like to support tranlation of parameter name and so we want to first look for DisplayName attribute on the filed and next for a specified name (WithName()) or the name of the property: 
 ```csharp
     public static class MyFluentValidationOptions
@@ -127,9 +123,10 @@ We would also like to support tranlation of parameter name and so we want to fir
 
             return null;
         }
-    }```
+    }
+```
      
-So the purpose is to get the FieldName and retuned it with the corrent NuggetParameterBeginToken and NuggetParameterEndToken for i18n. 
+So the purpose is to get the FieldName and retuned it with the correct NuggetParameterBeginToken and NuggetParameterEndToken as configured for i18n. 
 
 ### Plugin your ValidationOptions for parameter name
 So to register our FluentValidationOptions we need to add this in Application:Start()
@@ -141,7 +138,7 @@ So to register our FluentValidationOptions we need to add this in Application:St
 
 
 ### FluentValidation.Mvc5 pitfalls and workaround 
-Unfortunately - the creators of FluentValidation.Mvc determined that truncation the error message at the first "." is a good idea for RangeFluentValidator and StringLengthFluentValidation. So we must workaround these formatters to return the entire actual message. 
+Unfortunately - the creators of FluentValidation.Mvc determined that truncation the error message at the first "." is a good idea for RangeFluentValidation and StringLengthFluentValidation. So we must workaround these formatters to return the entire actual message. 
 
 ```csharp
 
@@ -201,7 +198,7 @@ Unfortunately - the creators of FluentValidation.Mvc determined that truncation 
 }
 ```
 ### Plug custom validators into FluentValidation.Mvc5  
-Our custom validator must be registered with the FluentValidationModelProvider in Application_Start()
+Our custom validators must then be registered with the FluentValidationModelProvider in Application_Start()
 
 ```csharp
 
@@ -213,8 +210,7 @@ Our custom validator must be registered with the FluentValidationModelProvider i
         p.Add(typeof(ILengthValidator), (metadata, context, rule, validator) => 
                 new MyStringLengthFluentValidationPropertyValidator(metadata, context, rule, validator));
     });
-
 ```
 
 ### Summary
-This repo contains a VS2013 solution with all the necessary code to make FluentValidation and i18n work together in validation and translation og resources. This is very handy when you application must support several languages and you use i18n to handle your translations. Using this code you will not rely on any og the resources in FluentValidation. 
+This repo contains a VS2013 solution with all the necessary code to make FluentValidation and i18n work together in validation and translation og resources. This is very handy when you application must support several languages and you use i18n to handle your translations. Using this code you will not rely on any of the resources in FluentValidation and your messages/tokens will be detected automatically by the i18n.PostBuild command. 
