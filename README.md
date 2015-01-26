@@ -7,6 +7,9 @@ FluentValidation offer more flexibility in defining rules and can even be used w
 
 This project is a result from my experience with getting FluentValidation and i18n to play together nicely. There are some pitfalls that wil be highligheted. 
 
+i18n home: http://github.com/turquoiseowl/i18n 
+FluentValidation: http://fluentvalidation.codeplex.com 
+
 ### Defining you own i18n resource 
 
 ### plugin your i18n resource
